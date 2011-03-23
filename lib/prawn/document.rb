@@ -525,6 +525,7 @@ module Prawn
     # <tt>:total_pages</tt>:: If provided, will replace <total> with the value given.
     # Useful to override the total number of pages when using the start_count_at option.
     # <tt>:position</tt>:: Where to place the text on the page.
+    # <tt>:color</tt>:: The color of the text to use on each page.
     #
     # Example: Print page numbers on every page except for the first.  Start counting from
     #          five.
@@ -552,6 +553,7 @@ module Prawn
         end        
         if page_match?(options[:page_filter], p)
           go_to_page(p)
+          self.fill_color options[:color] if options[:color]
           total_pages = options[:total_pages].nil? ? page_count : options[:total_pages]
           str = string.gsub("<page>","#{pseudopage}").gsub("<total>","#{total_pages}")
           draw_text str, :at => options[:position]
